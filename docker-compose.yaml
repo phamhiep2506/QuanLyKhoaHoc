@@ -1,0 +1,28 @@
+services:
+  api:
+    build: src/KhoaHoc
+    container_name: api-server
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: 5000
+    ports:
+      - 5000:5000
+    network_mode: host
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
+    container_name: mssql-server
+    restart: always
+    environment:
+      SA_PASSWORD: Password123 # Thiết lập password
+      ACCEPT_EULA: Y
+    volumes:
+      - mssql-volume:/var/opt/mssql/data
+    ports:
+      - 1433:1433
+    network_mode: host
+
+volumes:
+    mssql-volume:

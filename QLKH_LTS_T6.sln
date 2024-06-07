@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1EC5F623-056D-42DF-8D3E-6489BF9E3FAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KhoaHoc", "KhoaHoc", "{4FBF8A40-F8E1-4A8D-9A99-4AF07A1D0CAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaHoc.Api", "src\KhoaHoc\KhoaHoc.Api\KhoaHoc.Api.csproj", "{0AE0CE3E-6936-43D5-B5A0-B123C9A886E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaHoc.Application", "src\KhoaHoc\KhoaHoc.Application\KhoaHoc.Application.csproj", "{019B2FE2-ADF6-43DC-B849-3A9E88DD6F90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaHoc.Domain", "src\KhoaHoc\KhoaHoc.Domain\KhoaHoc.Domain.csproj", "{CEC2DD3D-13F9-459E-9DB4-69054BF2AA8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaHoc.Infrastructure", "src\KhoaHoc\KhoaHoc.Infrastructure\KhoaHoc.Infrastructure.csproj", "{8CEF6B80-3A69-48DE-8EAA-C2267B11FC1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AE0CE3E-6936-43D5-B5A0-B123C9A886E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE0CE3E-6936-43D5-B5A0-B123C9A886E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE0CE3E-6936-43D5-B5A0-B123C9A886E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE0CE3E-6936-43D5-B5A0-B123C9A886E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019B2FE2-ADF6-43DC-B849-3A9E88DD6F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019B2FE2-ADF6-43DC-B849-3A9E88DD6F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019B2FE2-ADF6-43DC-B849-3A9E88DD6F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019B2FE2-ADF6-43DC-B849-3A9E88DD6F90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEC2DD3D-13F9-459E-9DB4-69054BF2AA8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC2DD3D-13F9-459E-9DB4-69054BF2AA8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC2DD3D-13F9-459E-9DB4-69054BF2AA8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC2DD3D-13F9-459E-9DB4-69054BF2AA8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CEF6B80-3A69-48DE-8EAA-C2267B11FC1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CEF6B80-3A69-48DE-8EAA-C2267B11FC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CEF6B80-3A69-48DE-8EAA-C2267B11FC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CEF6B80-3A69-48DE-8EAA-C2267B11FC1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4FBF8A40-F8E1-4A8D-9A99-4AF07A1D0CAF} = {1EC5F623-056D-42DF-8D3E-6489BF9E3FAA}
+		{0AE0CE3E-6936-43D5-B5A0-B123C9A886E4} = {4FBF8A40-F8E1-4A8D-9A99-4AF07A1D0CAF}
+		{019B2FE2-ADF6-43DC-B849-3A9E88DD6F90} = {4FBF8A40-F8E1-4A8D-9A99-4AF07A1D0CAF}
+		{CEC2DD3D-13F9-459E-9DB4-69054BF2AA8E} = {4FBF8A40-F8E1-4A8D-9A99-4AF07A1D0CAF}
+		{8CEF6B80-3A69-48DE-8EAA-C2267B11FC1B} = {4FBF8A40-F8E1-4A8D-9A99-4AF07A1D0CAF}
+	EndGlobalSection
+EndGlobal
