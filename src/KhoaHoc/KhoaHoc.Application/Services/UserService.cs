@@ -1,7 +1,7 @@
 using AutoMapper;
 using KhoaHoc.Application.Interfaces;
+using KhoaHoc.Application.Payloads.Requests;
 using KhoaHoc.Application.Payloads.Responses;
-using KhoaHoc.Application.Payloads.Responses.UserResponses;
 using KhoaHoc.Domain.Entities;
 using KhoaHoc.Domain.Interfaces;
 
@@ -24,13 +24,35 @@ public class UserService : IUserService
         _response = response;
     }
 
-    public async Task<IResponse> GetAllUser()
+    public async Task<IResponse> UserRegister(
+        UserRegisterRequest userRegisterRequest
+    )
     {
-        List<User> users = await _repository.GetAllAsync();
-        return _response.Content(
-            ResponseStatus.Success,
-            ResponseMessage.RegisterSuccess,
-            _mapper.Map<List<User>, List<UserRegisterResponse>>(users)
+        if(await _repository.AnyAsync(x => x.UserName == userRegisterRequest.UserName))
+        {
+            return await _response.NoContent(
+                ResponseStatus.Conflict,
+                ResponseMessage.UserRegisterExisted
+            );
+        }
+
+        User user = _mapper.Map<UserRegisterRequest, User>(userRegisterRequest);
+
+        try
+        {
+            await _repository.AddAsync(user);
+        }
+        catch
+        {
+            return await _response.NoContent(
+                ResponseStatus.BadRequest,
+                ResponseMessage.UserRegisterFailed
+            );
+        }
+
+        return await _response.NoContent(
+            ResponseStatus.Created,
+            ResponseMessage.UserRegisterSuccess
         );
     }
 }

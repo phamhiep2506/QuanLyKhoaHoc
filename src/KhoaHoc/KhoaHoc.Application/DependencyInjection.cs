@@ -1,7 +1,7 @@
+using System.Reflection;
 using KhoaHoc.Application.Interfaces;
 using KhoaHoc.Application.Payloads.Responses;
 using KhoaHoc.Application.Services;
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

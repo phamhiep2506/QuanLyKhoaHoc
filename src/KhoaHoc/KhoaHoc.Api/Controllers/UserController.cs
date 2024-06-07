@@ -1,4 +1,5 @@
 using KhoaHoc.Application.Interfaces;
+using KhoaHoc.Application.Payloads.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KhoaHoc.Api.Controllers;
@@ -14,9 +15,16 @@ public class UserController : ControllerBase
         _service = service;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> UserRegister()
+    [HttpPost]
+    public async Task<IActionResult> UserRegister(
+        UserRegisterRequest userRegisterRequest
+    )
     {
-        return Ok(await _service.GetAllUser());
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(await _service.UserRegister(userRegisterRequest));
     }
 }

@@ -7,21 +7,26 @@ public class Response : IResponse
 {
     public int Status { get; set; }
     public string? Message { get; set; }
+
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public object? Data { get; set; }
 
-    public IResponse NoContent(int Status, string Message)
+    public async Task<IResponse> NoContent(int Status, string Message)
     {
         this.Status = Status;
         this.Message = Message;
-        return this;
+        return await Task.FromResult(this);
     }
 
-    public IResponse Content(int Status, string Message, object Data)
+    public async Task<IResponse> Content(
+        int Status,
+        string Message,
+        object Data
+    )
     {
         this.Status = Status;
         this.Message = Message;
         this.Data = Data;
-        return this;
+        return await Task.FromResult(this);
     }
 }
