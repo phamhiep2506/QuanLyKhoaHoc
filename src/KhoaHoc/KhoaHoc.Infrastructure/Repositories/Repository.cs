@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KhoaHoc.Infrastructure.Repositories;
 
-public class UserRepository<T> : IUserRepository<T>
+public class Repository<T> : IRepository<T>
     where T : class
 {
     private readonly ApplicationDbContext _context;
 
-    public UserRepository(ApplicationDbContext context)
+    public Repository(ApplicationDbContext context)
     {
         _context = context;
     }

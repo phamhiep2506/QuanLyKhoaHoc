@@ -25,7 +25,11 @@ public static class DependencyInjection
 
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
-        services.AddScoped<IUserRepository<User>, UserRepository<User>>();
+        services.AddScoped<IRepository<User>, Repository<User>>();
+        services.AddScoped<
+            IRepository<ConfirmEmail>,
+            Repository<ConfirmEmail>
+        >();
 
         return services;
     }
