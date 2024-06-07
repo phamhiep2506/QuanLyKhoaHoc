@@ -1,4 +1,4 @@
-using KhoaHoc.Application.Interfaces;
+using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +8,9 @@ namespace KhoaHoc.Api.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly IUserService _service;
+    private readonly IUserRegisterService _service;
 
-    public UserController(IUserService service)
+    public UserController(IUserRegisterService service)
     {
         _service = service;
     }
@@ -25,6 +25,6 @@ public class UserController : ControllerBase
             return BadRequest();
         }
 
-        return Ok(await _service.UserRegister(userRegisterRequest));
+        return Ok(await _service.CreateUserRegister(userRegisterRequest));
     }
 }

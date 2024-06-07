@@ -1,6 +1,6 @@
 using AutoMapper;
-using KhoaHoc.Application.Helpers;
 using KhoaHoc.Application.Interfaces;
+using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Requests;
 using KhoaHoc.Application.Payloads.Responses;
 using KhoaHoc.Domain.Entities;
@@ -9,33 +9,34 @@ using KhoaHoc.Domain.Interfaces;
 namespace KhoaHoc.Application.Services;
 
 using BCrypt.Net;
+using KhoaHoc.Application.Interfaces.IEmailServices;
 
-public class UserService : IUserService
+public class UserRegisterService : IUserRegisterService
 {
-    private readonly IRepository<User> _userRepository;
-    private readonly IRepository<ConfirmEmail> _confirmEmailRepository;
+    private readonly IRepository<User> _repository;
     private readonly IMapper _mapper;
     private readonly IResponse _response;
+    private readonly IConfirmEmailService _confirmEmailService;
 
-    public UserService(
-        IRepository<User> userRepository,
-        IRepository<ConfirmEmail> confirmEmailRepository,
+    public UserRegisterService(
+        IRepository<User> repository,
         IMapper mapper,
-        IResponse response
+        IResponse response,
+        IConfirmEmailService confirmEmailService
     )
     {
-        _userRepository = userRepository;
-        _confirmEmailRepository = confirmEmailRepository;
+        _repository = repository;
         _mapper = mapper;
         _response = response;
+        _confirmEmailService = confirmEmailService;
     }
 
-    public async Task<IResponse> UserRegister(
+    public async Task<IResponse> CreateUserRegister(
         UserRegisterRequest userRegisterRequest
     )
     {
         if (
-            await _userRepository.AnyAsync(x =>
+            await _repository.AnyAsync(x =>
                 x.UserName == userRegisterRequest.UserName
             )
         )
@@ -54,7 +55,7 @@ public class UserService : IUserService
 
         try
         {
-            await _userRepository.AddAsync(user);
+            await _repository.AddAsync(user);
         }
         catch
         {
@@ -64,14 +65,7 @@ public class UserService : IUserService
             );
         }
 
-        // Crate table confirm Email when new create a user
-        ConfirmEmail confirmEmail = new ConfirmEmail();
-        confirmEmail.UserId = user.Id;
-        confirmEmail.ConfirmCode = RandomEmailConfirmCode.RandomString(5);
-        confirmEmail.ExpiryTime = DateTime.Now;
-        confirmEmail.IsConfirm = false;
-
-        await _confirmEmailRepository.AddAsync(confirmEmail);
+        await _confirmEmailService.CreateConfirmEmail(user.Id);
 
         return await _response.NoContent(
             ResponseStatus.Created,
