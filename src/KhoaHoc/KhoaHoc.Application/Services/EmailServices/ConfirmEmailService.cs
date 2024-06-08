@@ -25,7 +25,7 @@ public class ConfirmEmailService : IConfirmEmailService
     {
         ConfirmEmail confirmEmail = new ConfirmEmail();
         confirmEmail.UserId = userId;
-        confirmEmail.ConfirmCode = RandomEmailConfirmCode.RandomString(5);
+        confirmEmail.ConfirmCode = RandomEmailConfirmCode.RandomCode(5);
         confirmEmail.ExpiryTime = DateTime.Now.AddMinutes(3);
         confirmEmail.IsConfirm = false;
 

@@ -7,5 +7,5 @@ public class Role : BaseEntity
     public string RoleCode { get; set; } = null!;
     public string RoleName { get; set; } = null!;
 
-    public Permission? Permission { get; set; }
+    public ICollection<Permission>? Permissions { get; set; }
 }

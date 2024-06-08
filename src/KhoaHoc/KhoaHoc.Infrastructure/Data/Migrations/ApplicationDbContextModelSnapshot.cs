@@ -44,12 +44,9 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CertificateTypeId");
 
                     b.ToTable("Certificates");
                 });
@@ -62,16 +59,11 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CertificateId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CertificateId");
 
                     b.ToTable("CertificateTypes");
                 });
@@ -99,6 +91,8 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("ConfirmEmails");
                 });
 
@@ -117,6 +111,10 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Permissions");
                 });
@@ -141,6 +139,8 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("RefreshTokens");
                 });
 
@@ -152,9 +152,6 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("PermissionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("RoleCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -164,8 +161,6 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PermissionId");
 
                     b.ToTable("Roles");
                 });
@@ -184,10 +179,7 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CertificateId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ConfirmEmailId")
+                    b.Property<int?>("CertificateId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateTime")
@@ -214,13 +206,7 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PermissionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProvinceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RefreshTokenId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateTime")
@@ -238,88 +224,94 @@ namespace KhoaHoc.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConfirmEmailId");
-
-                    b.HasIndex("PermissionId");
-
-                    b.HasIndex("RefreshTokenId");
+                    b.HasIndex("CertificateId");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("KhoaHoc.Domain.Entities.Certificate", b =>
                 {
-                    b.HasOne("KhoaHoc.Domain.Entities.User", "User")
+                    b.HasOne("KhoaHoc.Domain.Entities.CertificateType", "CertificateType")
                         .WithMany("Certificates")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CertificateTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CertificateType");
+                });
+
+            modelBuilder.Entity("KhoaHoc.Domain.Entities.ConfirmEmail", b =>
+                {
+                    b.HasOne("KhoaHoc.Domain.Entities.User", "User")
+                        .WithMany("ConfirmEmails")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KhoaHoc.Domain.Entities.CertificateType", b =>
+            modelBuilder.Entity("KhoaHoc.Domain.Entities.Permission", b =>
+                {
+                    b.HasOne("KhoaHoc.Domain.Entities.Role", "Role")
+                        .WithMany("Permissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KhoaHoc.Domain.Entities.User", "User")
+                        .WithMany("Permissions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("KhoaHoc.Domain.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("KhoaHoc.Domain.Entities.User", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("KhoaHoc.Domain.Entities.User", b =>
                 {
                     b.HasOne("KhoaHoc.Domain.Entities.Certificate", "Certificate")
-                        .WithMany("CertificateTypes")
+                        .WithMany("Users")
                         .HasForeignKey("CertificateId");
 
                     b.Navigation("Certificate");
                 });
 
-            modelBuilder.Entity("KhoaHoc.Domain.Entities.Role", b =>
-                {
-                    b.HasOne("KhoaHoc.Domain.Entities.Permission", "Permission")
-                        .WithMany("Roles")
-                        .HasForeignKey("PermissionId");
-
-                    b.Navigation("Permission");
-                });
-
-            modelBuilder.Entity("KhoaHoc.Domain.Entities.User", b =>
-                {
-                    b.HasOne("KhoaHoc.Domain.Entities.ConfirmEmail", "ConfirmEmail")
-                        .WithMany("Users")
-                        .HasForeignKey("ConfirmEmailId");
-
-                    b.HasOne("KhoaHoc.Domain.Entities.Permission", "Permission")
-                        .WithMany("Users")
-                        .HasForeignKey("PermissionId");
-
-                    b.HasOne("KhoaHoc.Domain.Entities.RefreshToken", "RefreshToken")
-                        .WithMany("Users")
-                        .HasForeignKey("RefreshTokenId");
-
-                    b.Navigation("ConfirmEmail");
-
-                    b.Navigation("Permission");
-
-                    b.Navigation("RefreshToken");
-                });
-
             modelBuilder.Entity("KhoaHoc.Domain.Entities.Certificate", b =>
                 {
-                    b.Navigation("CertificateTypes");
-                });
-
-            modelBuilder.Entity("KhoaHoc.Domain.Entities.ConfirmEmail", b =>
-                {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("KhoaHoc.Domain.Entities.Permission", b =>
+            modelBuilder.Entity("KhoaHoc.Domain.Entities.CertificateType", b =>
                 {
-                    b.Navigation("Roles");
-
-                    b.Navigation("Users");
+                    b.Navigation("Certificates");
                 });
 
-            modelBuilder.Entity("KhoaHoc.Domain.Entities.RefreshToken", b =>
+            modelBuilder.Entity("KhoaHoc.Domain.Entities.Role", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("Permissions");
                 });
 
             modelBuilder.Entity("KhoaHoc.Domain.Entities.User", b =>
                 {
-                    b.Navigation("Certificates");
+                    b.Navigation("ConfirmEmails");
+
+                    b.Navigation("Permissions");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

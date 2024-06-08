@@ -1,6 +1,6 @@
-default: clean build run
+default: clean run
 
-dev: clean build watch
+dev: clean watch
 
 build:
 	dotnet build

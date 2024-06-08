@@ -8,5 +8,5 @@ public class RefreshToken : BaseEntity
     public DateTime ExpiryTime { get; set; }
     public int UserId { get; set; }
 
-    public ICollection<User>? Users { get; set; }
+    public User? User { get; set; }
 }

@@ -6,5 +6,5 @@ public class CertificateType : BaseEntity
 {
     public string Name { get; set; } = null!;
 
-    public Certificate? Certificate { get; set; }
+    public ICollection<Certificate>? Certificates { get; set; }
 }

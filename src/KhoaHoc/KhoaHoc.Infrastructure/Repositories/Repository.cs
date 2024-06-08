@@ -15,19 +15,29 @@ public class Repository<T> : IRepository<T>
         _context = context;
     }
 
+    public IQueryable<T> Query(Expression<Func<T, bool>> expression)
+    {
+        return _context.Set<T>().Where(expression);
+    }
+
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         return await _context.Set<T>().ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync(
+    public async Task<IEnumerable<T>> GetAsync(
         Expression<Func<T, bool>> expression
     )
     {
         return await _context.Set<T>().Where(expression).ToArrayAsync();
     }
 
-    public async Task<T?> GetAsync(Expression<Func<T, bool>> expression)
+    public async Task<T?> FindByIdAsync(int id)
+    {
+        return await _context.Set<T>().FindAsync(id);
+    }
+
+    public async Task<T?> FindAsync(Expression<Func<T, bool>> expression)
     {
         return await _context.Set<T>().Where(expression).SingleOrDefaultAsync();
     }

@@ -4,14 +4,15 @@ public static class RandomEmailConfirmCode
 {
     private static Random random = new Random();
 
-    public static string RandomString(int length)
+    public static string RandomCode(int length)
     {
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        return new string(
-            Enumerable
-                .Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)])
-                .ToArray()
-        );
+        string code = string.Empty;
+
+        for (int i = 0; i < length; i++)
+        {
+            code = String.Concat(code, random.Next(10).ToString());
+        }
+
+        return code;
     }
 }

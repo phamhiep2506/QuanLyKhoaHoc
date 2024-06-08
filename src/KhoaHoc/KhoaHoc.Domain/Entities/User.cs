@@ -17,14 +17,14 @@ public class User : BaseEntity
     public string? Address { get; set; }
     public int DistrictId { get; set; }
     public int ProvinceId { get; set; }
-    public int CertificateId { get; set; }
+    public int? CertificateId { get; set; }
     public int WardId { get; set; }
     public UserActivationStatus UserStatus { get; set; } =
         UserActivationStatus.UnActivated;
 
-    public Permission? Permission { get; set; }
-    public ConfirmEmail? ConfirmEmail { get; set; }
-    public RefreshToken? RefreshToken { get; set; }
+    public ICollection<Permission>? Permissions { get; set; }
+    public ICollection<ConfirmEmail>? ConfirmEmails { get; set; }
+    public ICollection<RefreshToken>? RefreshTokens { get; set; }
 
-    public ICollection<Certificate>? Certificates { get; set; }
+    public Certificate? Certificate { get; set; }
 }

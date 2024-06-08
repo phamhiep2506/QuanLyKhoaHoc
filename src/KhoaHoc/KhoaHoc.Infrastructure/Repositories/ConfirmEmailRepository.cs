@@ -1,6 +1,7 @@
 using KhoaHoc.Domain.Entities;
 using KhoaHoc.Domain.Interfaces;
 using KhoaHoc.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace KhoaHoc.Infrastructure.Repositories;
 
@@ -8,18 +9,21 @@ public class ConfirmEmailRepository
     : Repository<ConfirmEmail>,
         IConfirmEmailRepository
 {
-    private readonly IUserRepository _userRepository;
-    public ConfirmEmailRepository(ApplicationDbContext context, IUserRepository userRepository)
+    private readonly ApplicationDbContext _context;
+
+    public ConfirmEmailRepository(ApplicationDbContext context)
         : base(context)
     {
-        _userRepository = userRepository;
+        _context = context;
     }
 
     public async Task<bool> ConfirmEmailUseCode(int userId, string confirmCode)
     {
-        ConfirmEmail? confirmEmail = await GetAsync(x =>
-            x.UserId == userId && x.ConfirmCode == confirmCode
-        );
+        ConfirmEmail? confirmEmail = await Query(x =>
+                x.UserId == userId && x.ConfirmCode == confirmCode
+            )
+            .Include(x => x.User)
+            .SingleOrDefaultAsync();
 
         if (confirmEmail == null)
         {
@@ -33,15 +37,12 @@ public class ConfirmEmailRepository
 
         confirmEmail.IsConfirm = true;
 
-        await UpdateAsync(confirmEmail);
-
-        User? user = await _userRepository.GetAsync(x => x.Id == userId);
-
-        if (user != null)
+        if (confirmEmail.User != null)
         {
-            user.IsActive = true;
-            await _userRepository.UpdateAsync(user);
+            confirmEmail.User.IsActive = true;
         }
+
+        await UpdateAsync(confirmEmail);
 
         return true;
     }

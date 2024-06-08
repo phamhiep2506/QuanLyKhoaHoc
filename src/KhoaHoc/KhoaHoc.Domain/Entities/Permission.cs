@@ -7,6 +7,6 @@ public class Permission : BaseEntity
     public int UserId { get; set; }
     public int RoleId { get; set; }
 
-    public ICollection<Role>? Roles { get; set; }
-    public ICollection<User>? Users { get; set; }
+    public Role? Role { get; set; }
+    public User? User { get; set; }
 }

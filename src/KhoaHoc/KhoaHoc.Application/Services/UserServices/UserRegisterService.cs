@@ -36,7 +36,7 @@ public class UserRegisterService : IUserRegisterService
         UserRegisterRequest userRegisterRequest
     )
     {
-        User? user = await _repository.GetAsync(x =>
+        User? user = await _repository.FindAsync(x =>
             x.UserName == userRegisterRequest.UserName
         );
 
