@@ -7,18 +7,27 @@ using KhoaHoc.Domain.Interfaces;
 
 namespace KhoaHoc.Application.Services.UserServices;
 
-using System.IdentityModel.Tokens.Jwt;
 using BCrypt.Net;
+using KhoaHoc.Application.Interfaces.ICreateRefreshTokenServices;
 
 public class UserLoginService : IUserLoginService
 {
     private readonly IUserRepository _repository;
     private readonly IResponse _response;
+    private readonly IJsonWebToken _jsonWebToken;
+    private readonly ICreateRefreshTokenService _createRefreshTokenService;
 
-    public UserLoginService(IUserRepository repository, IResponse response)
+    public UserLoginService(
+        IUserRepository repository,
+        IResponse response,
+        IJsonWebToken jsonWebToken,
+        ICreateRefreshTokenService createRefreshTokenService
+    )
     {
         _repository = repository;
         _response = response;
+        _jsonWebToken = jsonWebToken;
+        _createRefreshTokenService = createRefreshTokenService;
     }
 
     public async Task<IResponse> LoginAsUser(UserLoginRequest userLoginRequest)
@@ -43,13 +52,19 @@ public class UserLoginService : IUserLoginService
             );
         }
 
-        var token = new JwtSecurityToken();
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        string accessToken = _jsonWebToken.GenerateAccessToken(user);
+        string refreshToken = _jsonWebToken.GenerateRefreshToken();
+
+        await _createRefreshTokenService.LoginCreateRefreshToken(
+            refreshToken,
+            DateTime.Now.AddDays(10),
+            user.Id
+        );
 
         return await _response.Content(
             ResponseStatus.Success,
             ResponseMessage.UserLoginSuccess,
-            new object()
+            new { AccessToken = accessToken, RefreshToken = refreshToken }
         );
     }
 }

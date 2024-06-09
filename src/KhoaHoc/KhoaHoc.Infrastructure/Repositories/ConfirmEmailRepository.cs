@@ -9,11 +9,8 @@ public class ConfirmEmailRepository
     : Repository<ConfirmEmail>,
         IConfirmEmailRepository
 {
-
     public ConfirmEmailRepository(ApplicationDbContext context)
-        : base(context)
-    {
-    }
+        : base(context) { }
 
     public async Task<bool> ConfirmEmailUseCode(int userId, string confirmCode)
     {
