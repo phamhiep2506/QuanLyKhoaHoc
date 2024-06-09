@@ -4,7 +4,7 @@ namespace KhoaHoc.Domain.Interfaces;
 
 public interface IUserRepository : IRepository<User>
 {
-    Task CreateUser(User user);
+    public Task CreateUser(User user);
 
-    Task<User?> FindUser(string userName);
+    public Task<User?> FindUser(string userName);
 }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace KhoaHoc.Application.Payloads.Requests;
+namespace KhoaHoc.Application.Payloads.Requests.UserRequests;
 
 public class UserConfirmEmailRequest
 {

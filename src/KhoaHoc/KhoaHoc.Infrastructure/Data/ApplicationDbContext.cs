@@ -1,4 +1,3 @@
-using System.Reflection;
 using KhoaHoc.Domain.Entities;
 using KhoaHoc.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;

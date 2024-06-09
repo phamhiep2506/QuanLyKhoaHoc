@@ -11,4 +11,8 @@ public static class ResponseMessage
     // Email
     public const string ConfirmEmailSuccess = "Xác nhận email thành công.";
     public const string ConfirmEmailFailed = "Xác nhận email không thành công.";
+
+    // Login
+    public const string UserLoginFailed = "Đăng nhập không thành công.";
+    public const string UserLoginSuccess = "Đăng nhập thành công.";
 }

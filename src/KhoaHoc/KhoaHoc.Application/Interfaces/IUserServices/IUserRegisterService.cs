@@ -1,4 +1,4 @@
-using KhoaHoc.Application.Payloads.Requests;
+using KhoaHoc.Application.Payloads.Requests.UserRequests;
 
 namespace KhoaHoc.Application.Interfaces.IUserServices;
 

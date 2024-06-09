@@ -5,13 +5,13 @@ namespace KhoaHoc.Infrastructure.Interfaces;
 
 public interface IApplicationDbContext
 {
-    DbSet<User> Users { get; set; }
-    DbSet<Role> Roles { get; set; }
-    DbSet<RefreshToken> RefreshTokens { get; set; }
-    DbSet<Permission> Permissions { get; set; }
-    DbSet<ConfirmEmail> ConfirmEmails { get; set; }
-    DbSet<CertificateType> CertificateTypes { get; set; }
-    DbSet<Certificate> Certificates { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<Permission> Permissions { get; set; }
+    public DbSet<ConfirmEmail> ConfirmEmails { get; set; }
+    public DbSet<CertificateType> CertificateTypes { get; set; }
+    public DbSet<Certificate> Certificates { get; set; }
 
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

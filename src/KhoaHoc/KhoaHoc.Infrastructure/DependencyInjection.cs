@@ -1,4 +1,3 @@
-using KhoaHoc.Domain.Entities;
 using KhoaHoc.Domain.Interfaces;
 using KhoaHoc.Infrastructure.Data;
 using KhoaHoc.Infrastructure.Interfaces;

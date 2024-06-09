@@ -2,15 +2,15 @@ using AutoMapper;
 using KhoaHoc.Application.Interfaces;
 using KhoaHoc.Application.Interfaces.IEmailServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
-using KhoaHoc.Application.Payloads.Requests;
+using KhoaHoc.Application.Payloads.Requests.UserRequests;
 using KhoaHoc.Application.Payloads.Responses;
+using KhoaHoc.Application.Payloads.Responses.UserResponses;
 using KhoaHoc.Domain.Entities;
 using KhoaHoc.Domain.Interfaces;
 
-namespace KhoaHoc.Application.Services;
+namespace KhoaHoc.Application.Services.UserServices;
 
 using BCrypt.Net;
-using KhoaHoc.Application.Payloads.Responses.UserResponses;
 
 public class UserRegisterService : IUserRegisterService
 {
