@@ -36,9 +36,7 @@ public class UserRegisterService : IUserRegisterService
         UserRegisterRequest userRegisterRequest
     )
     {
-        User? user = await _repository.FindAsync(x =>
-            x.UserName == userRegisterRequest.UserName
-        );
+        User? user = await _repository.FindUser(userRegisterRequest.UserName);
 
         if (user == null)
         {
@@ -52,7 +50,7 @@ public class UserRegisterService : IUserRegisterService
 
             try
             {
-                await _repository.AddAsync(newUser);
+                await _repository.CreateUser(newUser);
             }
             catch
             {

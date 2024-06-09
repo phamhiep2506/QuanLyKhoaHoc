@@ -8,4 +8,28 @@ public class UserRepository : Repository<User>, IUserRepository
 {
     public UserRepository(ApplicationDbContext context)
         : base(context) { }
+
+    public async Task CreateUser(User user)
+    {
+        try
+        {
+            await AddAsync(user);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public async Task<User?> FindUser(string userName)
+    {
+        try
+        {
+            return await FindAsync(x => x.UserName == userName);
+        }
+        catch
+        {
+            throw;
+        }
+    }
 }

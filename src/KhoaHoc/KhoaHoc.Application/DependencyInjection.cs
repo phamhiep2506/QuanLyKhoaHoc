@@ -5,6 +5,7 @@ using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Responses;
 using KhoaHoc.Application.Services;
 using KhoaHoc.Application.Services.EmailServices;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
