@@ -7,9 +7,9 @@
 > [!WARNING]
 > **Install [Docker Compose CLI](https://docs.docker.com/compose/install) > version `v2.27.1`**
 ```bash
-$ sudo docker-compose up -d # Run app
-$ sudo docker-compose up --build -d && sudo docker image prune # Rebuild & delete old images
-$ sudo docker-compose down # Stop all container
+$ make docker.up # Run app
+$ make docker.build # Rebuild & delete old images
+$ make docker.down # Stop all container
 ```
 
 ## Manual start

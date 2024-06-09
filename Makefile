@@ -48,3 +48,12 @@ mssql.start:
 
 mssql.stop:
 	sudo docker container stop mssql-server-manual
+
+docker.up:
+	sudo docker-compose up -d
+
+docker.down:
+	sudo docker-compose down --remove-orphans
+
+docker.build:
+	sudo docker-compose up --build -d && sudo docker image prune
