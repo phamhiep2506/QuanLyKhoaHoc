@@ -77,7 +77,7 @@ public class UserRegisterService : IUserRegisterService
         {
             return await _response.NoContent(
                 ResponseStatus.Conflict,
-                ResponseMessage.UserRegisterExisted
+                ResponseMessage.UserExisted
             );
         }
 
@@ -88,7 +88,7 @@ public class UserRegisterService : IUserRegisterService
         MimeMessage message = _sendEmailService.CreateMessage(
             user.Email,
             "Xác minh tài khoản",
-            $"<b>Code: <b> {confirmCode}"
+            $"<b>Code:</b> {confirmCode}"
         );
         await _sendEmailService.Send(message);
 

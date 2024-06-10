@@ -47,4 +47,12 @@ public class JsonWebToken : IJsonWebToken
         rng.GetBytes(randomNumber);
         return Convert.ToBase64String(randomNumber);
     }
+
+    public int GetUserId(string accessToken)
+    {
+        var jwt = new JwtSecurityTokenHandler().ReadJwtToken(accessToken);
+        return int.Parse(
+            jwt.Claims.First(c => c.Type == "NameIdentifier").Value
+        );
+    }
 }

@@ -53,6 +53,7 @@ public static class DependencyInjection
         >();
         services.AddScoped<IJsonWebToken, JsonWebToken>();
         services.AddScoped<ISendEmailService, SendEmailService>();
+        services.AddScoped<IUserPasswordService, UserPasswordService>();
 
         return services;
     }

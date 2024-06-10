@@ -32,4 +32,16 @@ public class UserRepository : Repository<User>, IUserRepository
             throw;
         }
     }
+
+    public async Task<User?> FindUser(int userId)
+    {
+        try
+        {
+            return await FindAsync(x => x.Id == userId);
+        }
+        catch
+        {
+            throw;
+        }
+    }
 }
