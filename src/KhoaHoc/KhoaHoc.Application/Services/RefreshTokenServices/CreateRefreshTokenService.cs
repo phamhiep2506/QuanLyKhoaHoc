@@ -1,4 +1,4 @@
-using KhoaHoc.Application.Interfaces.ICreateRefreshTokenServices;
+using KhoaHoc.Application.Interfaces.IRefreshTokenServices;
 using KhoaHoc.Domain.Interfaces;
 
 namespace KhoaHoc.Application.Services.RefreshTokenServices;

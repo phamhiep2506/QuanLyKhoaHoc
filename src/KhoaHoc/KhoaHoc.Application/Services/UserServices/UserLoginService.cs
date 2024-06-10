@@ -1,5 +1,5 @@
 using KhoaHoc.Application.Interfaces;
-using KhoaHoc.Application.Interfaces.ICreateRefreshTokenServices;
+using KhoaHoc.Application.Interfaces.IRefreshTokenServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Requests.UserRequests;
 using KhoaHoc.Application.Payloads.Responses;

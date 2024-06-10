@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Text;
 using KhoaHoc.Application.Helpers;
 using KhoaHoc.Application.Interfaces;
-using KhoaHoc.Application.Interfaces.ICreateRefreshTokenServices;
+using KhoaHoc.Application.Interfaces.IRefreshTokenServices;
 using KhoaHoc.Application.Interfaces.IEmailServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Responses;
