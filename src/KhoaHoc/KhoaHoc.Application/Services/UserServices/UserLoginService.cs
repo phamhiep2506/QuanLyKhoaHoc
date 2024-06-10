@@ -4,11 +4,11 @@ using KhoaHoc.Application.Payloads.Requests.UserRequests;
 using KhoaHoc.Application.Payloads.Responses;
 using KhoaHoc.Domain.Entities;
 using KhoaHoc.Domain.Interfaces;
+using KhoaHoc.Application.Interfaces.ICreateRefreshTokenServices;
 
 namespace KhoaHoc.Application.Services.UserServices;
 
 using BCrypt.Net;
-using KhoaHoc.Application.Interfaces.ICreateRefreshTokenServices;
 
 public class UserLoginService : IUserLoginService
 {
@@ -49,6 +49,14 @@ public class UserLoginService : IUserLoginService
             return await _response.NoContent(
                 ResponseStatus.Unauthorized,
                 ResponseMessage.UserLoginFailed
+            );
+        }
+
+        if (user.IsActive == false)
+        {
+            return await _response.NoContent(
+                ResponseStatus.Unauthorized,
+                ResponseMessage.AccountIsNotVerified
             );
         }
 

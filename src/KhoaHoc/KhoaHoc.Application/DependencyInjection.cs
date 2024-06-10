@@ -52,6 +52,7 @@ public static class DependencyInjection
             CreateRefreshTokenService
         >();
         services.AddScoped<IJsonWebToken, JsonWebToken>();
+        services.AddScoped<ISendEmailService, SendEmailService>();
 
         return services;
     }

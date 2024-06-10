@@ -24,5 +24,14 @@ services:
       - 1433:1433
     network_mode: host
 
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog-server
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+    network_mode: host
+
 volumes:
     mssql-volume:

@@ -50,3 +50,11 @@ $ make
     + Password: `Password123`
     + Host: `localhost`
     + Port: `1433`
+
+- MailHog:
+    - Web:
+        + Host: `localhost`
+        + Port: `8025`
+    - SMTP:
+        + Host: `localhost`
+        + Port: `1025`

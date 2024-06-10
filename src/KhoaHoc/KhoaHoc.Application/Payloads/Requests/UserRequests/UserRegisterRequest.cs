@@ -10,6 +10,7 @@ public class UserRegisterRequest
 
     [Required(ErrorMessage = "Email là bắt buộc.")]
     [MaxLength(100, ErrorMessage = "Email không được quá 100 ký tự.")]
+    [EmailAddress(ErrorMessage = "Email không đúng.")]
     public string Email { get; set; } = null!;
 
     [Required(ErrorMessage = "Password là bắt buộc.")]

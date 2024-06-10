@@ -57,3 +57,20 @@ docker.down:
 
 docker.build:
 	sudo docker-compose up --build -d && sudo docker image prune
+
+mailhog.run:
+	sudo docker run \
+		-d \
+		-p 1025:1025 \
+		-p 8025:8025 \
+		--name mailhog-server-manual \
+		mailhog/mailhog
+
+mailhog.start:
+	sudo docker container start mailhog-server-manual
+
+mailhog.stop:
+	sudo docker container stop mailhog-server-manual
+
+mailhog.delete: mailhog.stop
+	sudo docker container rm -f mailhog-server-manual

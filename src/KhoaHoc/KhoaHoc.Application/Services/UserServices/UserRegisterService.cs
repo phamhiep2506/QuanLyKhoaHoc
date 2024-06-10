@@ -11,6 +11,7 @@ using KhoaHoc.Domain.Interfaces;
 namespace KhoaHoc.Application.Services.UserServices;
 
 using BCrypt.Net;
+using MimeKit;
 
 public class UserRegisterService : IUserRegisterService
 {
@@ -18,18 +19,21 @@ public class UserRegisterService : IUserRegisterService
     private readonly IMapper _mapper;
     private readonly IResponse _response;
     private readonly IConfirmEmailService _confirmEmailService;
+    private readonly ISendEmailService _sendEmailService;
 
     public UserRegisterService(
         IMapper mapper,
         IResponse response,
         IConfirmEmailService confirmEmailService,
-        IUserRepository repository
+        IUserRepository repository,
+        ISendEmailService sendEmailService
     )
     {
         _mapper = mapper;
         _response = response;
         _confirmEmailService = confirmEmailService;
         _repository = repository;
+        _sendEmailService = sendEmailService;
     }
 
     public async Task<IResponse> CreateUserRegister(
@@ -77,7 +81,16 @@ public class UserRegisterService : IUserRegisterService
             );
         }
 
-        await _confirmEmailService.CreateConfirmEmail(user.Id);
+        string confirmCode = await _confirmEmailService.CreateConfirmEmail(
+            user.Id
+        );
+
+        MimeMessage message = _sendEmailService.CreateMessage(
+            user.Email,
+            "Xác minh tài khoản",
+            $"<b>Code: <b> {confirmCode}"
+        );
+        await _sendEmailService.Send(message);
 
         return await _response.Content(
             ResponseStatus.Created,

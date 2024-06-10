@@ -15,4 +15,5 @@ public static class ResponseMessage
     // Login
     public const string UserLoginFailed = "Đăng nhập không thành công.";
     public const string UserLoginSuccess = "Đăng nhập thành công.";
+    public const string AccountIsNotVerified = "Tài khoản chưa được xác minh.";
 }

@@ -21,15 +21,19 @@ public class ConfirmEmailService : IConfirmEmailService
         _response = response;
     }
 
-    public async Task CreateConfirmEmail(int userId)
+    public async Task<string> CreateConfirmEmail(int userId)
     {
+        string confirmCode = RandomEmailConfirmCode.RandomCode(5);
+
         ConfirmEmail confirmEmail = new ConfirmEmail();
         confirmEmail.UserId = userId;
-        confirmEmail.ConfirmCode = RandomEmailConfirmCode.RandomCode(5);
+        confirmEmail.ConfirmCode = confirmCode;
         confirmEmail.ExpiryTime = DateTime.Now.AddMinutes(3);
         confirmEmail.IsConfirm = false;
 
         await _repository.AddAsync(confirmEmail);
+
+        return confirmCode;
     }
 
     public async Task<IResponse> UserConfirmEmailUseCode(
