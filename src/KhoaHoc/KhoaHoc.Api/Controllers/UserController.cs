@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using KhoaHoc.Application.Interfaces.IEmailServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
@@ -79,7 +80,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Route("cpass")]
+    [Route("change-password")]
     [Authorize]
     public async Task<IActionResult> ChangePassword(
         UserChangePasswordRequest userChangePasswordRequest
@@ -101,7 +102,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Route("rpass")]
+    [Route("reset-password")]
     public async Task<IActionResult> ResetPassword(
         UserResetPasswordRequest userResetPasswordRequest
     )
@@ -119,7 +120,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Route("crpass")]
+    [Route("confirm-reset-password")]
     public async Task<IActionResult> ConfirmResetPassword(
         UserConfirmResetPasswordRequest userConfirmResetPasswordRequest
     )
@@ -136,5 +137,22 @@ public class UserController : ControllerBase
                 userConfirmResetPasswordRequest.NewPassword
             )
         );
+    }
+
+    [HttpPost]
+    [Route("upload-avatar")]
+    [Authorize]
+    public async Task<IActionResult> UploadAvatar([Required] IFormFile avatar)
+    {
+        var fileName = Path.GetFileName(avatar.FileName);
+        var filePath = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            @"wwwroot/images",
+            fileName
+        );
+        var fileStream = new FileStream(filePath, FileMode.Create);
+        await avatar.CopyToAsync(fileStream);
+
+        return Ok();
     }
 }

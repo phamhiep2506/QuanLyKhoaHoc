@@ -6,7 +6,9 @@ builder.Services.AddApiServices();
 
 var app = builder.Build();
 
-app.UseAuthentication();
+app.UseStaticFiles();
+
+/* app.UseAuthentication(); */
 app.UseAuthorization();
 
 app.MapControllers();
