@@ -1,13 +1,14 @@
 using System.Reflection;
 using System.Text;
-using KhoaHoc.Application.Helpers;
 using KhoaHoc.Application.Interfaces;
 using KhoaHoc.Application.Interfaces.IEmailServices;
-using KhoaHoc.Application.Interfaces.IRefreshTokenServices;
+using KhoaHoc.Application.Interfaces.IJwtServices;
+using KhoaHoc.Application.Interfaces.IPermissionServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Responses;
 using KhoaHoc.Application.Services.EmailServices;
-using KhoaHoc.Application.Services.RefreshTokenServices;
+using KhoaHoc.Application.Services.JwtServices;
+using KhoaHoc.Application.Services.PermissionServices;
 using KhoaHoc.Application.Services.UserServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -44,16 +45,15 @@ public static class DependencyInjection
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         services.AddScoped<IResponse, Response>();
-        services.AddScoped<IUserRegisterService, UserRegisterService>();
-        services.AddScoped<IConfirmEmailService, ConfirmEmailService>();
         services.AddScoped<IUserLoginService, UserLoginService>();
-        services.AddScoped<
-            ICreateRefreshTokenService,
-            CreateRefreshTokenService
-        >();
-        services.AddScoped<IJsonWebToken, JsonWebToken>();
-        services.AddScoped<ISendEmailService, SendEmailService>();
+        services.AddScoped<IUserRegisterService, UserRegisterService>();
         services.AddScoped<IUserPasswordService, UserPasswordService>();
+        services.AddScoped<IConfirmEmailService, ConfirmEmailService>();
+        services.AddScoped<ISendEmailService, SendEmailService>();
+        services.AddScoped<IJwtAccessTokenService, JwtAccessTokenService>();
+        services.AddScoped<IJwtRefreshTokenService, JwtRefreshTokenService>();
+        services.AddScoped<IJwtGetClaimsService, JwtGetClaimsService>();
+        services.AddScoped<ICreatePermissionService, CreatePermissionService>();
 
         return services;
     }

@@ -1,5 +1,3 @@
-using KhoaHoc.Application.Payloads.Responses;
-
 namespace KhoaHoc.Application.Interfaces;
 
 public interface IResponse

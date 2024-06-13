@@ -1,17 +1,26 @@
-using KhoaHoc.Application.Interfaces.IRefreshTokenServices;
+using System.Security.Cryptography;
+using KhoaHoc.Application.Interfaces.IJwtServices;
 using KhoaHoc.Domain.Interfaces;
 
-namespace KhoaHoc.Application.Services.RefreshTokenServices;
+namespace KhoaHoc.Application.Services.JwtServices;
 
-public class CreateRefreshTokenService : ICreateRefreshTokenService
+public class JwtRefreshTokenService : IJwtRefreshTokenService
 {
     private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-    public CreateRefreshTokenService(
+    public JwtRefreshTokenService(
         IRefreshTokenRepository refreshTokenRepository
     )
     {
         _refreshTokenRepository = refreshTokenRepository;
+    }
+
+    public string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[64];
+        var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 
     public async Task LoginCreateRefreshToken(

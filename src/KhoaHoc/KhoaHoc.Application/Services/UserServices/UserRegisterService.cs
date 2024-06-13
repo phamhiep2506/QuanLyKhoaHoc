@@ -7,11 +7,11 @@ using KhoaHoc.Application.Payloads.Responses;
 using KhoaHoc.Application.Payloads.Responses.UserResponses;
 using KhoaHoc.Domain.Entities;
 using KhoaHoc.Domain.Interfaces;
+using MimeKit;
 
 namespace KhoaHoc.Application.Services.UserServices;
 
 using BCrypt.Net;
-using MimeKit;
 
 public class UserRegisterService : IUserRegisterService
 {

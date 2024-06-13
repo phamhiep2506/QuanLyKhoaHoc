@@ -1,6 +1,7 @@
 using KhoaHoc.Application.Helpers;
 using KhoaHoc.Application.Interfaces;
 using KhoaHoc.Application.Interfaces.IEmailServices;
+using KhoaHoc.Application.Interfaces.IPermissionServices;
 using KhoaHoc.Application.Payloads.Responses;
 using KhoaHoc.Domain.Entities;
 using KhoaHoc.Domain.Interfaces;
@@ -11,14 +12,17 @@ public class ConfirmEmailService : IConfirmEmailService
 {
     private readonly IConfirmEmailRepository _repository;
     private readonly IResponse _response;
+    private readonly ICreatePermissionService _createPermissionService;
 
     public ConfirmEmailService(
         IConfirmEmailRepository repository,
-        IResponse response
+        IResponse response,
+        ICreatePermissionService createPermissionService
     )
     {
         _repository = repository;
         _response = response;
+        _createPermissionService = createPermissionService;
     }
 
     public async Task<string> CreateConfirmEmail(int userId)
@@ -53,6 +57,8 @@ public class ConfirmEmailService : IConfirmEmailService
                 ResponseMessage.ConfirmEmailFailed
             );
         }
+
+        await _createPermissionService.NewDefaultPermission(userId);
 
         return await _response.NoContent(
             ResponseStatus.Success,

@@ -1,10 +1,11 @@
 using KhoaHoc.Application.Interfaces;
-using KhoaHoc.Application.Interfaces.IRefreshTokenServices;
+using KhoaHoc.Application.Interfaces.IJwtServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Requests.UserRequests;
 using KhoaHoc.Application.Payloads.Responses;
 using KhoaHoc.Domain.Entities;
 using KhoaHoc.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace KhoaHoc.Application.Services.UserServices;
 
@@ -14,25 +15,29 @@ public class UserLoginService : IUserLoginService
 {
     private readonly IUserRepository _repository;
     private readonly IResponse _response;
-    private readonly IJsonWebToken _jsonWebToken;
-    private readonly ICreateRefreshTokenService _createRefreshTokenService;
+    private readonly IJwtAccessTokenService _jwtAccessTokenService;
+    private readonly IJwtRefreshTokenService _jwtRefreshTokenService;
 
     public UserLoginService(
         IUserRepository repository,
         IResponse response,
-        IJsonWebToken jsonWebToken,
-        ICreateRefreshTokenService createRefreshTokenService
+        IJwtAccessTokenService jwtAccessTokenService,
+        IJwtRefreshTokenService jwtRefreshTokenService
     )
     {
         _repository = repository;
         _response = response;
-        _jsonWebToken = jsonWebToken;
-        _createRefreshTokenService = createRefreshTokenService;
+        _jwtAccessTokenService = jwtAccessTokenService;
+        _jwtRefreshTokenService = jwtRefreshTokenService;
     }
 
     public async Task<IResponse> LoginAsUser(UserLoginRequest userLoginRequest)
     {
-        User? user = await _repository.FindUser(userLoginRequest.UserName);
+        User? user = await _repository
+            .Query(x => x.UserName == userLoginRequest.UserName)
+            .Include(x => x.Permissions!)
+            .ThenInclude(x => x.Role)
+            .SingleOrDefaultAsync();
 
         if (user == null)
         {
@@ -60,10 +65,10 @@ public class UserLoginService : IUserLoginService
             );
         }
 
-        string accessToken = _jsonWebToken.GenerateAccessToken(user);
-        string refreshToken = _jsonWebToken.GenerateRefreshToken();
+        string accessToken = _jwtAccessTokenService.GenerateAccessToken(user);
+        string refreshToken = _jwtRefreshTokenService.GenerateRefreshToken();
 
-        await _createRefreshTokenService.LoginCreateRefreshToken(
+        await _jwtRefreshTokenService.LoginCreateRefreshToken(
             refreshToken,
             DateTime.Now.AddDays(10),
             user.Id

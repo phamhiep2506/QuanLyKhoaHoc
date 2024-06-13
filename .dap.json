@@ -1,0 +1,7 @@
+{
+  "program": "${workspaceFolder}/src/KhoaHoc/KhoaHoc.Api/bin/Debug/net8.0/KhoaHoc.Api.dll",
+  "cwd": "${workspaceFolder}/src/KhoaHoc/KhoaHoc.Api",
+  "env": {
+    "ASPNETCORE_ENVIRONMENT": "Development"
+  }
+}
