@@ -52,7 +52,6 @@ public static class DependencyInjection
         services.AddScoped<ISendEmailService, SendEmailService>();
         services.AddScoped<IJwtAccessTokenService, JwtAccessTokenService>();
         services.AddScoped<IJwtRefreshTokenService, JwtRefreshTokenService>();
-        services.AddScoped<IJwtGetClaimsService, JwtGetClaimsService>();
         services.AddScoped<ICreatePermissionService, CreatePermissionService>();
         services.AddScoped<IUserUpdateService, UserUpdateService>();
         services.AddScoped<IUserGetService, UserGetService>();

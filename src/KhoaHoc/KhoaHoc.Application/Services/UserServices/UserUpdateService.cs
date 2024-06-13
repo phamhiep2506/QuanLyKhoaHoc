@@ -1,6 +1,5 @@
 using AutoMapper;
 using KhoaHoc.Application.Interfaces;
-using KhoaHoc.Application.Interfaces.IJwtServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Requests;
 using KhoaHoc.Application.Payloads.Responses;
@@ -13,19 +12,16 @@ public class UserUpdateService : IUserUpdateService
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
-    private readonly IJwtGetClaimsService _jwtGetClaimsService;
     private readonly IResponse _response;
 
     public UserUpdateService(
         IMapper mapper,
         IUserRepository userRepository,
-        IJwtGetClaimsService jwtGetClaimsService,
         IResponse response
     )
     {
         _mapper = mapper;
         _userRepository = userRepository;
-        _jwtGetClaimsService = jwtGetClaimsService;
         _response = response;
     }
 
