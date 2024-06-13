@@ -44,4 +44,16 @@ public class UserRepository : Repository<User>, IUserRepository
             throw;
         }
     }
+
+    public async Task UpdateUser(User user)
+    {
+        try
+        {
+            await UpdateAsync(user);
+        }
+        catch
+        {
+            throw;
+        }
+    }
 }

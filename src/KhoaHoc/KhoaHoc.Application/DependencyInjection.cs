@@ -54,6 +54,8 @@ public static class DependencyInjection
         services.AddScoped<IJwtRefreshTokenService, JwtRefreshTokenService>();
         services.AddScoped<IJwtGetClaimsService, JwtGetClaimsService>();
         services.AddScoped<ICreatePermissionService, CreatePermissionService>();
+        services.AddScoped<IUserUpdateService, UserUpdateService>();
+        services.AddScoped<IUserGetService, UserGetService>();
 
         return services;
     }

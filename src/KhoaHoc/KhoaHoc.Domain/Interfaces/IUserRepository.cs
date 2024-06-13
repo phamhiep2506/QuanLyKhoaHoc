@@ -9,4 +9,6 @@ public interface IUserRepository : IRepository<User>
     public Task<User?> FindUser(string userName);
 
     public Task<User?> FindUser(int userId);
+
+    public Task UpdateUser(User user);
 }

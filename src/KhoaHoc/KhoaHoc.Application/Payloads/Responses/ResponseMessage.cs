@@ -26,4 +26,10 @@ public static class ResponseMessage
     public const string ResetPasswordSuccess = "Đặt lại mật khẩu thành công.";
     public const string ResetPasswordFailed =
         "Đặt lại mật khẩu không thành công.";
+
+    // Update
+    public const string UserUpdateSuccess = "Cập nhập thông tin thành công.";
+
+    // Get
+    public const string UserGetSuccess = "Lấy thông tin thành công.";
 }

@@ -1,7 +1,7 @@
-using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using KhoaHoc.Application.Interfaces.IEmailServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
+using KhoaHoc.Application.Payloads.Requests;
 using KhoaHoc.Application.Payloads.Requests.UserRequests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,18 +16,24 @@ public class UserController : ControllerBase
     private readonly IConfirmEmailService _confirmEmailService;
     private readonly IUserLoginService _userLoginService;
     private readonly IUserPasswordService _userPasswordService;
+    private readonly IUserUpdateService _userUpdateService;
+    private readonly IUserGetService _userGetService;
 
     public UserController(
         IUserRegisterService userRegisterService,
         IConfirmEmailService confirmEmailService,
         IUserLoginService userLoginService,
-        IUserPasswordService userPasswordService
-    )
+        IUserPasswordService userPasswordService,
+        IUserUpdateService userUpdateService
+,
+        IUserGetService userGetService)
     {
         _userRegisterService = userRegisterService;
         _confirmEmailService = confirmEmailService;
         _userLoginService = userLoginService;
         _userPasswordService = userPasswordService;
+        _userUpdateService = userUpdateService;
+        _userGetService = userGetService;
     }
 
     [HttpPost]
@@ -139,20 +145,30 @@ public class UserController : ControllerBase
         );
     }
 
-    [HttpPost]
-    [Route("upload-avatar")]
+    [HttpPatch]
+    [Route("update")]
     [Authorize]
-    public async Task<IActionResult> UploadAvatar([Required] IFormFile avatar)
+    public async Task<IActionResult> UpdateUser(
+        UserUpdateRequest userUpdateRequest
+    )
     {
-        var fileName = Path.GetFileName(avatar.FileName);
-        var filePath = Path.Combine(
-            Directory.GetCurrentDirectory(),
-            @"wwwroot/images",
-            fileName
-        );
-        var fileStream = new FileStream(filePath, FileMode.Create);
-        await avatar.CopyToAsync(fileStream);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
 
-        return Ok();
+        int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        return Ok(
+            await _userUpdateService.UpdateInfo(userId, userUpdateRequest)
+        );
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> GetUser()
+    {
+        int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        return Ok(await _userGetService.GetInfo(userId));
     }
 }
