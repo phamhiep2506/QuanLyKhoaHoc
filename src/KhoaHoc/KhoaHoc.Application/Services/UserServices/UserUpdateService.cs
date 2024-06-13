@@ -16,7 +16,12 @@ public class UserUpdateService : IUserUpdateService
     private readonly IJwtGetClaimsService _jwtGetClaimsService;
     private readonly IResponse _response;
 
-    public UserUpdateService(IMapper mapper, IUserRepository userRepository, IJwtGetClaimsService jwtGetClaimsService, IResponse response)
+    public UserUpdateService(
+        IMapper mapper,
+        IUserRepository userRepository,
+        IJwtGetClaimsService jwtGetClaimsService,
+        IResponse response
+    )
     {
         _mapper = mapper;
         _userRepository = userRepository;
@@ -24,7 +29,10 @@ public class UserUpdateService : IUserUpdateService
         _response = response;
     }
 
-    public async Task<IResponse> UpdateInfo(int userId, UserUpdateRequest userUpdateRequest)
+    public async Task<IResponse> UpdateInfo(
+        int userId,
+        UserUpdateRequest userUpdateRequest
+    )
     {
         User? user = await _userRepository.FindByIdAsync(userId);
 

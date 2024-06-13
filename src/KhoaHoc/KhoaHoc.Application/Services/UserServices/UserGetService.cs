@@ -14,7 +14,11 @@ public class UserGetService : IUserGetService
     private readonly IResponse _response;
     private readonly IMapper _mapper;
 
-    public UserGetService(IUserRepository userRepository, IResponse response, IMapper mapper)
+    public UserGetService(
+        IUserRepository userRepository,
+        IResponse response,
+        IMapper mapper
+    )
     {
         _userRepository = userRepository;
         _response = response;

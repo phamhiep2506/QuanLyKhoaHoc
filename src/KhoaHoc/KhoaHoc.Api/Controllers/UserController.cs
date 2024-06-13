@@ -24,9 +24,9 @@ public class UserController : ControllerBase
         IConfirmEmailService confirmEmailService,
         IUserLoginService userLoginService,
         IUserPasswordService userPasswordService,
-        IUserUpdateService userUpdateService
-,
-        IUserGetService userGetService)
+        IUserUpdateService userUpdateService,
+        IUserGetService userGetService
+    )
     {
         _userRegisterService = userRegisterService;
         _confirmEmailService = confirmEmailService;

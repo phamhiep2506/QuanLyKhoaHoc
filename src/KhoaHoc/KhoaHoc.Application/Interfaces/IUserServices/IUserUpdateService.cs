@@ -4,5 +4,8 @@ namespace KhoaHoc.Application.Interfaces.IUserServices;
 
 public interface IUserUpdateService
 {
-    public Task<IResponse> UpdateInfo(int userId, UserUpdateRequest userUpdateRequest);
+    public Task<IResponse> UpdateInfo(
+        int userId,
+        UserUpdateRequest userUpdateRequest
+    );
 }
