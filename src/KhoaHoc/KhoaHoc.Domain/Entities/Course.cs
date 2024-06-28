@@ -13,4 +13,6 @@ public class Course : BaseEntity
     public int TotalCourseDuration { get; set; }
     public int NumberOfStudent { get; set; }
     public int NumberOfPurchases { get; set; }
+
+    public ICollection<CourseSubject>? CourseSubjects { get; set; }
 }

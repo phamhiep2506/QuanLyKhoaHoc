@@ -57,8 +57,8 @@ public class UserRefreshTokenService : IUserRefreshTokenService
             );
         }
 
-        string generateRefreshToken =
-            _jwtRefreshTokenService.GenerateRefreshToken();
+        string generateAccessToken = _jwtAccessTokenService.GenerateAccessToken(user);
+        string generateRefreshToken = _jwtRefreshTokenService.GenerateRefreshToken();
 
         await _jwtRefreshTokenService.LoginCreateRefreshToken(
             generateRefreshToken,
@@ -70,7 +70,7 @@ public class UserRefreshTokenService : IUserRefreshTokenService
             ResponseMessage.UserLoginSuccess,
             new
             {
-                AccessToken = _jwtAccessTokenService.GenerateAccessToken(user),
+                AccessToken = generateAccessToken,
                 RefreshToken = generateRefreshToken
             }
         );

@@ -25,6 +25,8 @@ public class User : BaseEntity
     public ICollection<Permission>? Permissions { get; set; }
     public ICollection<ConfirmEmail>? ConfirmEmails { get; set; }
     public ICollection<RefreshToken>? RefreshTokens { get; set; }
+    public ICollection<LearningProgress>? LearningProgresses { get; set; }
+    public ICollection<RegisterStudy>? RegisterStudies { get; set; }
 
     public Certificate? Certificate { get; set; }
 }

@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using KhoaHoc.Domain.Common;
 
 namespace KhoaHoc.Domain.Entities;
