@@ -33,4 +33,23 @@ public class RefreshTokenRepository
             throw;
         }
     }
+
+    public async Task<bool> CheckRefreshToken(string userRefreshToken)
+    {
+        RefreshToken? refreshToken = await FindAsync(x =>
+            x.Token == userRefreshToken
+        );
+
+        if (refreshToken == null)
+        {
+            return false;
+        }
+
+        if (refreshToken.ExpiryTime < DateTime.Now)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

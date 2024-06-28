@@ -6,4 +6,5 @@ namespace KhoaHoc.Api.Controllers;
 [Route("khoahoc")]
 public class CourseController : ControllerBase
 {
+    public CourseController() { }
 }

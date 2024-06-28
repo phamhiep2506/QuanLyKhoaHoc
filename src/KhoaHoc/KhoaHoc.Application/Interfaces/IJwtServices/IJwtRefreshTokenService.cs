@@ -4,9 +4,5 @@ public interface IJwtRefreshTokenService
 {
     public string GenerateRefreshToken();
 
-    public Task LoginCreateRefreshToken(
-        string token,
-        DateTime expiryTime,
-        int userId
-    );
+    public Task LoginCreateRefreshToken(string token, int userId);
 }

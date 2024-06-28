@@ -55,6 +55,7 @@ public static class DependencyInjection
         services.AddScoped<ICreatePermissionService, CreatePermissionService>();
         services.AddScoped<IUserUpdateService, UserUpdateService>();
         services.AddScoped<IUserGetService, UserGetService>();
+        services.AddScoped<IUserRefreshTokenService, UserRefreshTokenService>();
 
         return services;
     }

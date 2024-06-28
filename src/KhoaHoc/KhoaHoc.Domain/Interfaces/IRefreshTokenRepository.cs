@@ -9,4 +9,6 @@ public interface IRefreshTokenRepository : IRepository<RefreshToken>
         DateTime expiryTime,
         int userId
     );
+
+    public Task<bool> CheckRefreshToken(string userRefreshToken);
 }

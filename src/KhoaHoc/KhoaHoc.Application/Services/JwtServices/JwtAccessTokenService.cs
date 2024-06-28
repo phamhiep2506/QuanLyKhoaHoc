@@ -36,7 +36,9 @@ public class JwtAccessTokenService : IJwtAccessTokenService
 
         var token = new JwtSecurityToken(
             claims: claims,
-            expires: DateTime.Now.AddDays(1),
+            expires: DateTime.Now.AddDays(
+                Int32.Parse(_configuration["Jwt:AccessTokenValidityDay"]!)
+            ),
             signingCredentials: new SigningCredentials(
                 new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]!)

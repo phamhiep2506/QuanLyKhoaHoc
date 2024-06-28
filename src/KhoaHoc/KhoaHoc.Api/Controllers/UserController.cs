@@ -18,6 +18,7 @@ public class UserController : ControllerBase
     private readonly IUserPasswordService _userPasswordService;
     private readonly IUserUpdateService _userUpdateService;
     private readonly IUserGetService _userGetService;
+    private readonly IUserRefreshTokenService _userRefreshTokenService;
 
     public UserController(
         IUserRegisterService userRegisterService,
@@ -25,7 +26,8 @@ public class UserController : ControllerBase
         IUserLoginService userLoginService,
         IUserPasswordService userPasswordService,
         IUserUpdateService userUpdateService,
-        IUserGetService userGetService
+        IUserGetService userGetService,
+        IUserRefreshTokenService userRefreshTokenService
     )
     {
         _userRegisterService = userRegisterService;
@@ -34,6 +36,7 @@ public class UserController : ControllerBase
         _userPasswordService = userPasswordService;
         _userUpdateService = userUpdateService;
         _userGetService = userGetService;
+        _userRefreshTokenService = userRefreshTokenService;
     }
 
     [HttpPost]
@@ -170,5 +173,19 @@ public class UserController : ControllerBase
     {
         int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         return Ok(await _userGetService.GetInfo(userId));
+    }
+
+    [HttpPost]
+    [Route("refresh-token")]
+    public async Task<IActionResult> RefreshToken(
+        UserRefreshTokenRequest userRefreshTokenRequest
+    )
+    {
+        return Ok(
+            await _userRefreshTokenService.GenerateAccessTokenUseRefreshToken(
+                userRefreshTokenRequest.userId,
+                userRefreshTokenRequest.RefreshToken
+            )
+        );
     }
 }
