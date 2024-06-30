@@ -1,11 +1,13 @@
 using System.Reflection;
 using System.Text;
 using KhoaHoc.Application.Interfaces;
+using KhoaHoc.Application.Interfaces.ICourseServices;
 using KhoaHoc.Application.Interfaces.IEmailServices;
 using KhoaHoc.Application.Interfaces.IJwtServices;
 using KhoaHoc.Application.Interfaces.IPermissionServices;
 using KhoaHoc.Application.Interfaces.IUserServices;
 using KhoaHoc.Application.Payloads.Responses;
+using KhoaHoc.Application.Services.CourseServices;
 using KhoaHoc.Application.Services.EmailServices;
 using KhoaHoc.Application.Services.JwtServices;
 using KhoaHoc.Application.Services.PermissionServices;
@@ -56,6 +58,7 @@ public static class DependencyInjection
         services.AddScoped<IUserUpdateService, UserUpdateService>();
         services.AddScoped<IUserGetService, UserGetService>();
         services.AddScoped<IUserRefreshTokenService, UserRefreshTokenService>();
+        services.AddScoped<ICreateCourceService, CreateCourceService>();
 
         return services;
     }

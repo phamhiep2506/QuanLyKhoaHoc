@@ -15,6 +15,7 @@ public class RegisterStudy : BaseEntity
     public bool IsActive { get; set; }
 
     public User? User { get; set; }
+
     [ForeignKey(nameof(CurrentSubjectId))]
     public Subject? Subject { get; set; }
     public ICollection<LearningProgress>? LearningProgresses { get; set; }

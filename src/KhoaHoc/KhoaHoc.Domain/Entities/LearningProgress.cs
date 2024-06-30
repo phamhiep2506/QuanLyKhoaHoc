@@ -11,6 +11,7 @@ public class LearningProgress : BaseEntity
 
     public User? User { get; set; }
     public RegisterStudy? RegisterStudy { get; set; }
+
     [ForeignKey(nameof(CurrentSubjectId))]
     public Subject? Subject { get; set; }
 }

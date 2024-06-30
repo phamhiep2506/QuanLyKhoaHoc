@@ -59,7 +59,7 @@ public class ConfirmEmailService : IConfirmEmailService
         }
 
         // Add default role <student>
-        await _createPermissionService.NewDefaultPermission(userId);
+        // await _createPermissionService.NewDefaultPermission(userId);
 
         return await _response.NoContent(
             ResponseStatus.Success,

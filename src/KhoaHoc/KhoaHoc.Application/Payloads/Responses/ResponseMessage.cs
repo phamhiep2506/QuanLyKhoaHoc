@@ -32,4 +32,9 @@ public static class ResponseMessage
 
     // Get
     public const string UserGetSuccess = "Lấy thông tin thành công.";
+
+    // Teacher create course
+    public const string TeacherPermissionFailed =
+        "Bạn không có quyền giảng viên";
+    public const string TeacherCreateCourseSuccess = "";
 }

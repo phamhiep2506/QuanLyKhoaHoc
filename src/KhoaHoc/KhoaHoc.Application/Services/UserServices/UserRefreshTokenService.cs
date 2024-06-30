@@ -57,8 +57,11 @@ public class UserRefreshTokenService : IUserRefreshTokenService
             );
         }
 
-        string generateAccessToken = _jwtAccessTokenService.GenerateAccessToken(user);
-        string generateRefreshToken = _jwtRefreshTokenService.GenerateRefreshToken();
+        string generateAccessToken = _jwtAccessTokenService.GenerateAccessToken(
+            user
+        );
+        string generateRefreshToken =
+            _jwtRefreshTokenService.GenerateRefreshToken();
 
         await _jwtRefreshTokenService.LoginCreateRefreshToken(
             generateRefreshToken,

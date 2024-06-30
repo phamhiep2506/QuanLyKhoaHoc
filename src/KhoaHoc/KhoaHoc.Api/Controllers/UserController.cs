@@ -181,6 +181,11 @@ public class UserController : ControllerBase
         UserRefreshTokenRequest userRefreshTokenRequest
     )
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
         return Ok(
             await _userRefreshTokenService.GenerateAccessTokenUseRefreshToken(
                 userRefreshTokenRequest.userId,
